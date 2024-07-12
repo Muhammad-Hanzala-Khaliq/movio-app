@@ -50,7 +50,7 @@ const SignUp = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="max-w-md w-full space-y-8 bg-black p-8 rounded-lg shadow-lg">

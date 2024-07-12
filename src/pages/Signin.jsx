@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import background from "../assets/Background.jpg";
-import { getDatabase, ref, get } from "firebase/database"; // Import necessary functions for Firebase Realtime Database
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -16,24 +15,7 @@ const SignIn = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      // Fetch username from the database
-      const db = getDatabase();
-      const userRef = ref(db, `users/${user.uid}/username`);
-      const snapshot = await get(userRef);
-      if (snapshot.exists()) {
-        const username = snapshot.val();
-        localStorage.setItem("username", username); // Store username in localStorage
-      } else {
-        console.error("No username found");
-      }
-
+      await signInWithEmailAndPassword(auth, email, password);
       alert("User signed in successfully");
       navigate("/"); // Redirect to /home upon successful sign-in using navigate
     } catch (error) {
@@ -48,10 +30,10 @@ const SignIn = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="bg-black opacity-105 p-8 rounded-lg shadow-md w-96">
+      <div className="bg-black opacity-105 p-8 rounded-lg shadow-md w-96 ">
         <h2 className="text-2xl font-bold mb-4 text-white">Sign In</h2>
         <form onSubmit={handleSignIn}>
           <input
